@@ -26,18 +26,21 @@ aws s3api create-bucket --bucket <your-unique-bucket-name> --region us-east-1 --
 ### 3. Update `backend.tf`
 Modify `backend.tf` to include your newly created S3 bucket name:
 ```hcl
-backend "s3" {
-  bucket = "<your-unique-bucket-name>"
-  key    = "terraform.tfstate"
-  region = "us-east-1"
+terraform {
+  backend "s3" {
+    bucket = "<your-unique-bucket-name>"
+    key    = "terraform.tfstate"
+    region = "us-east-1"
+  }
 }
 ```
 
 ### 4. Update `variables.tf`
 Set the Ubuntu AMI ID in `variables.tf` for `us-east-1`:
 ```hcl
-variable "ami_id" {
-  default = "<your-ubuntu-latest-ami-id>"
+variable "ami" {
+  type    = string
+  default = "<ubuntu-latest-image>"
 }
 ```
 
